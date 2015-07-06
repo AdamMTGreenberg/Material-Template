@@ -54,6 +54,10 @@ public class MainActivity extends BaseActivity implements MainActivityView, Navi
             mMainActivityPresenter.onFirstCreation();
         }
 
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+        }
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
 
@@ -64,9 +68,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Navi
         mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com",
                 BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
 
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-        }
     }
 
     @Override
