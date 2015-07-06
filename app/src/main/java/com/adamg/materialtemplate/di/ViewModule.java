@@ -21,11 +21,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @version 1 on 6/28/15
  *          All code under The MIT License (MIT) unless otherwise noted.
  */
-@Module(
-        addsTo = ApplicationModule.class,
-        library = true
-
-)
+@Module(library = true)
 public class ViewModule {
 
     private final BaseActivity mActivity;
