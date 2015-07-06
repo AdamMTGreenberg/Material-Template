@@ -27,8 +27,7 @@ public class ApiServiceModule {
 //     * @param restAdapter client provided by
 //     *                    {@link RestApiModule
 //     *                    #provideRestAdapter(retrofit.Endpoint, retrofit.client.Client,
-//     *                    com.markonelifestyle.cloud.api.headers.BaseApiHeaders,
-//     *                    com.markonelifestyle.cloud.api.converter.JacksonConverter)}
+//     *                    BaseApiHeaders, JacksonConverter)}
 //     * @return the implemented Retrofit Service
 //     */
 //    @Provides
