@@ -5,9 +5,13 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.view.View;
 
 import com.adamg.materialtemplate.ui.activities.BaseActivity;
+import com.adamg.materialtemplate.ui.fragment.FirstFragment;
+import com.adamg.materialtemplate.ui.views.ActivityView;
+import com.adamg.materialtemplate.ui.views.SecondFragment;
 
 /**
  * Class created to handle all the navigation between activities and fragments
@@ -22,6 +26,11 @@ public class Navigator {
 
     private Bundle mExtras;
 
+    /**
+     * Base fragment container
+     */
+    private int mContainer = 0;
+
     public Navigator(final Activity activityContext) {
         this.mActivityContext = activityContext;
     }
@@ -35,6 +44,31 @@ public class Navigator {
     public Navigator setExtras(final Bundle bundle) {
         mExtras = bundle;
         return this;
+    }
+
+    /**
+     * Navigates to the first fragment
+     */
+    public void navigateToFirstFragment() {
+        Fragment f = FirstFragment.newInstance();
+        navigateToFragment(f, false);
+    }
+
+    /**
+     * Navigates to the second fragment
+     */
+    public void navigateToSecondFragment() {
+        Fragment f = SecondFragment.newInstance();
+        navigateToFragment(f, true);
+    }
+
+    /**
+     * Set the main container for the fragment to occupy and transition between
+     *
+     * @param container the ViewGroup's ID that allows the fragment to live within
+     */
+    public void setFragmentContainer(@IdRes final int container) {
+        mContainer = container;
     }
 
     /**
@@ -75,17 +109,25 @@ public class Navigator {
     }
 
     private void navigate(final Fragment fragment, final FragmentTransaction transaction, final boolean addToBackStack) {
-        // Get the res id
-        final int resId = ((BaseActivity) mActivityContext).getFrameLayoutId();
+        // Check and see if we can automatically set the value in the instance it hasn't been properly set
+        if (mContainer == 0 && mActivityContext instanceof ActivityView) {
+            // Set the container ID automatically for this instance
+            setFragmentContainer(((ActivityView) mActivityContext).getFragmentContainer());
+        }
+
+        // Ensure we have a container to house the fragments
+        if (mContainer == 0) {
+            throw new IllegalStateException("Cannot navigate to a fragment while the ViewGroup container is" +
+                    "null");
+        }
 
         if (addToBackStack) {
             // Add this transaction to the back stack
-            transaction.replace(resId, fragment, fragment.getClass().getSimpleName());
+            transaction.replace(mContainer, fragment, fragment.getClass().getSimpleName());
             transaction.addToBackStack(fragment.getClass().getSimpleName());
-
         }
         else {
-            transaction.add(resId, fragment, fragment.getClass().getSimpleName());
+            transaction.add(mContainer, fragment, fragment.getClass().getSimpleName());
         }
 
         transaction.commit();
@@ -100,4 +142,5 @@ public class Navigator {
         }
         mExtras = null;
     }
+
 }

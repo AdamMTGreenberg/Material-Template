@@ -1,7 +1,6 @@
 package com.adamg.materialtemplate.ui.activities;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.adamg.materialtemplate.BaseApplication;
 import com.adamg.materialtemplate.di.Injector;
 import com.adamg.materialtemplate.di.ViewModule;
-import com.adamg.materialtemplate.ui.views.View;
+import com.adamg.materialtemplate.presenter.Presenter;
+import com.adamg.materialtemplate.ui.views.ActivityView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ import dagger.ObjectGraph;
 import rx.android.internal.Preconditions;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements View,
+public abstract class BaseActivity extends AppCompatActivity implements ActivityView,
         Injector {
 
     /**
@@ -27,17 +27,35 @@ public abstract class BaseActivity extends AppCompatActivity implements View,
      */
     private ObjectGraph mActivityScopeGraph;
 
+    /**
+     * Obtains the Activities presenter, allowing for logout to occur
+     *
+     * @return implementation of the {@link Presenter} associated with the child class
+     */
+    protected abstract Presenter getPresenter();
+
+    /**
+     * Obtains the layout ID used for this Activity's View
+     *
+     * @return the layout ID used for this Activity's View
+     */
+    @LayoutRes
+    protected abstract int getContentView();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayout());
+        // Set the View ID
+        setContentView(getContentView());
 
         // Create a new Dagger ObjectGraph
         injectDependencies();
 
         // Inject all annotated Views
         ButterKnife.inject(this);
+
+        getPresenter().initialize();
+        getPresenter().setView(this);
     }
 
     @Override
@@ -67,22 +85,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View,
         Preconditions.checkState(mActivityScopeGraph != null, "object graph must be assigned prior to calling inject");
         mActivityScopeGraph.inject(object);
     }
-
-    /**
-     * Obtains a reference to the FrameLayout used for Fragment swapping
-     *
-     * @return Layout resource ID for the FrameLayout housing the fragments
-     */
-    @IdRes
-    public abstract int getFrameLayoutId();
-
-    /**
-     * Obtains a reference to the Layout for injection via ButterKnife
-     *
-     * @return Layout resource ID for the layout
-     */
-    @LayoutRes
-    public abstract int getLayout();
 
     /**
      * Get a list of Dagger modules with Activity scope needed to this Activity.

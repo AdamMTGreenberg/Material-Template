@@ -3,6 +3,8 @@ package com.adamg.materialtemplate.di;
 import android.app.Activity;
 
 import com.adamg.materialtemplate.navigator.Navigator;
+import com.adamg.materialtemplate.presenter.ActivityPresenterModule;
+import com.adamg.materialtemplate.presenter.FragmentPresenterModule;
 import com.adamg.materialtemplate.ui.activities.BaseActivity;
 
 import java.lang.annotation.Retention;
@@ -21,7 +23,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @version 1 on 6/28/15
  *          All code under The MIT License (MIT) unless otherwise noted.
  */
-@Module(library = true)
+@Module(
+        library = true,
+        includes = {
+                ActivityPresenterModule.class,
+                FragmentPresenterModule.class
+        }
+)
 public class ViewModule {
 
     private final BaseActivity mActivity;

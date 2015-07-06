@@ -8,5 +8,5 @@ package com.adamg.materialtemplate.ui.views;
  * @version 1 on 6/28/15
  *          All code under The MIT License (MIT) unless otherwise noted.
  */
-public interface MainActivityView extends View {
+public interface MainActivityView extends ActivityView {
 }

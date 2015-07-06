@@ -1,6 +1,9 @@
 package com.adamg.materialtemplate.presenter;
 
 
+import android.os.Bundle;
+
+import com.adamg.materialtemplate.ui.views.ActivityView;
 import com.adamg.materialtemplate.ui.views.MainActivityView;
 
 /**
@@ -12,7 +15,11 @@ import com.adamg.materialtemplate.ui.views.MainActivityView;
 public interface MainActivityPresenter extends Presenter<MainActivityView> {
 
     /**
-     * Called when the first load of the Activity has occurred and all logic and state is at zero.
+     * Method called once the View has been created. Typically, this will set the fragment displayed in the
+     *
+     * @param savedInstanceState the bundle passed to the View initialization
+     * @param view               the {@link com.adamg.materialtemplate.ui.views.View}
+     *                           that this presenter is controlling
      */
-    void onFirstCreation();
+    void created(final Bundle savedInstanceState, final ActivityView view);
 }

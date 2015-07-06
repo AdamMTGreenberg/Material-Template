@@ -1,6 +1,5 @@
 package com.adamg.materialtemplate.ui.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -28,29 +27,6 @@ public abstract class BaseFragment extends Fragment implements com.adamg.materia
     private ObjectGraph mObjectGraph;
     private boolean mFirstAttach = true;
 
-    /**
-     * Creates an object graph for this Fragment by extending the hosting Activity's object graph with the modules
-     * returned by {@link #getModules()}.
-     * <p/>
-     * Injects this Fragment using the created graph.
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // expand the activity graph with the fragment-specific module(s)
-        ObjectGraph appGraph = ((Injector) activity).getObjectGraph();
-        List<Object> fragmentModules = getModules();
-        mObjectGraph = appGraph.plus(fragmentModules.toArray());
-
-        // Make sure it's the first time through; we don't want to re-inject a retained fragment that is going
-        // through a detach/attach sequence.
-        if (mFirstAttach) {
-            inject(this);
-            mFirstAttach = false;
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getFragmentLayout(), container, false);
@@ -62,6 +38,9 @@ public abstract class BaseFragment extends Fragment implements com.adamg.materia
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        // Init the injection pieces
+        initInjection();
 
         // Set the View
         getPresenter().setView(this);
@@ -158,4 +137,18 @@ public abstract class BaseFragment extends Fragment implements com.adamg.materia
      */
     @NonNull
     protected abstract FragmentPresenter getPresenter();
+
+    private void initInjection() {
+        // Expand the activity graph with the fragment-specific module(s)
+        ObjectGraph appGraph = ((Injector) getActivity()).getObjectGraph();
+        List<Object> fragmentModules = getModules();
+        mObjectGraph = appGraph.plus(fragmentModules.toArray());
+
+        // Make sure it's the first time through; we don't want to re-inject a retained fragment that is going
+        // through a detach/attach sequence.
+        if (mFirstAttach) {
+            inject(this);
+            mFirstAttach = false;
+        }
+    }
 }

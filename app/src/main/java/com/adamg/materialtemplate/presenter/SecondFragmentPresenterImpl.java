@@ -1,0 +1,52 @@
+package com.adamg.materialtemplate.presenter;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+import com.adamg.materialtemplate.navigator.Navigator;
+import com.adamg.materialtemplate.ui.views.SecondFragmentView;
+
+/**
+ * @author Adam Greenberg
+ * @version 1 on 7/5/15
+ *          All code under The MIT License (MIT) unless otherwise noted.
+ */
+public class SecondFragmentPresenterImpl extends FragmentBasePresenterImpl<SecondFragmentView>
+        implements SecondFragmentPresenter {
+
+        /**
+         * Default abstract constructor that allows us to inject all the common pieces necessary for building
+         * the implementations of this class
+         *
+         * @param act        Injected instance of the Activity Context
+         * @param mNavigator Injected instance of the navigator for direction of the application flow
+         */
+        public SecondFragmentPresenterImpl(Activity act, Navigator mNavigator) {
+                super(act, mNavigator);
+        }
+
+        @Override
+        public void savedInstanceState(Bundle savedInstanceState) {
+
+        }
+
+        @Override
+        public void onSaveInstanceState(Bundle icicle) {
+
+        }
+
+        @Override
+        public void resume() {
+
+        }
+
+        @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void setArguments(Bundle bundle) {
+
+        }
+}

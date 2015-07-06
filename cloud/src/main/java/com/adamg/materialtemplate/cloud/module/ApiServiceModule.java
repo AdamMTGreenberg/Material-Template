@@ -9,6 +9,8 @@ package com.adamg.materialtemplate.cloud.module;
  */
 
 
+import com.adamg.materialtemplate.cloud.CloudDelegate;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,6 +18,9 @@ import dagger.Provides;
 import retrofit.RestAdapter;
 
 @Module(
+        injects = {
+                CloudDelegate.class
+        },
         complete = false,
         library = true
 )

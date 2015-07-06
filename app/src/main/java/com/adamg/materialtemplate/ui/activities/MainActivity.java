@@ -47,12 +47,21 @@ public class MainActivity extends BaseActivity implements MainActivityView, Navi
     MainActivityPresenter mMainActivityPresenter;
 
     @Override
+    protected MainActivityPresenter getPresenter() {
+        return mMainActivityPresenter;
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_base_layout;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null) {
-            mMainActivityPresenter.onFirstCreation();
-        }
+        // Call the created method and handle stuff accordingly
+        getPresenter().created(savedInstanceState, this);
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -83,7 +92,11 @@ public class MainActivity extends BaseActivity implements MainActivityView, Navi
             mNavigationDrawerFragment.closeDrawer();
         }
         else {
-            super.onBackPressed();
+            if (getFragmentManager().getBackStackEntryCount() == 0) {
+                super.onBackPressed();
+            } else {
+                getFragmentManager().popBackStack();
+            }
         }
     }
 
@@ -117,12 +130,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Navi
     }
 
     @Override
-    public int getFrameLayoutId() {
+    public int getFragmentContainer() {
         return R.id.main_layout_frame_layout;
-    }
-
-    @Override
-    public int getLayout() {
-        return R.layout.activity_base_layout;
     }
 }
