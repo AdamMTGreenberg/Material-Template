@@ -24,6 +24,7 @@
             android:layout_height="match_parent"
             android:clickable="true"/>
     </LinearLayout>
+
     <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
     <com.adamg.materialtemplate.ui.visual.ScrimInsetsFrameLayout
         android:id="@+id/scrimInsetsFrameLayout"
