@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2013 Fizz Buzz LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.adamg.materialtemplate.di;
+
+import dagger.ObjectGraph;
+
+/**
+ * @author Adam Greenberg
+ * @version 1 on 7/5/15
+ *          All code under The MIT License (MIT) unless otherwise noted.
+ */
+public interface Injector {
+
+    /**
+     * Gets the object graph for this component.
+     * @return the object graph
+     */
+    ObjectGraph getObjectGraph();
+
+    /**
+     * Injects a target object using this component's object graph.
+     * @param target the target object
+     */
+    void inject(Object target);
+}
