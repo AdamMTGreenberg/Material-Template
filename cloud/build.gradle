@@ -10,16 +10,88 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'mockito-extensions/org.mockito.plugins.MockMaker'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.android.support:support-annotations:22.2.0'
     compile project(':foundation')
+
+    // Dagger
+    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+
+    // OKHttp
+    compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile ('com.squareup.okhttp:okhttp-urlconnection:2.2.0'){
+        exclude module: 'okhttp'
+    }
+
+    // Retrofit
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+
+    // RxJava
+    compile 'io.reactivex:rxandroid:0.24.0'
+
+    // EventBus
+    compile 'de.greenrobot:eventbus:2.4.0'
+
+    // AssertJ
+    testCompile 'com.squareup.assertj:assertj-android:1.0.0'
+    testCompile 'com.squareup.assertj:assertj-android-support-v4:1.0.0'
+
+    // Podam
+    testCompile ('uk.co.jemos.podam:podam:4.2.2.RELEASE') {
+        exclude group: 'javax.annotation',  module: 'jsr250-api'
+    }
+
+    // Robolectric
+    testCompile('org.robolectric:robolectric:3.0-rc3') {
+        exclude module: 'classworlds'
+        exclude module: 'maven-artifact'
+        exclude module: 'maven-artifact-manager'
+        exclude module: 'maven-error-diagnostics'
+        exclude module: 'maven-model'
+        exclude module: 'maven-plugin-registry'
+        exclude module: 'maven-profile'
+        exclude module: 'maven-project'
+        exclude module: 'maven-settings'
+        exclude module: 'nekohtml'
+        exclude module: 'commons-logging'
+        exclude module: 'httpclient'
+        exclude module: 'junit'
+        exclude module: 'plexus-container-default'
+        exclude module: 'plexus-interpolation'
+        exclude module: 'plexus-utils'
+        exclude module: 'wagon-file'
+        exclude module: 'wagon-http-lightweight'
+        exclude module: 'wagon-http-shared'
+        exclude module: 'wagon-provider-api'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+
+    // jUnit testing
+    testCompile('junit:junit:4.12') {
+        exclude module: 'hamcrest-core'
+    }
 }
