@@ -2,7 +2,7 @@ package com.adamg.materialtemplate.cloud.module;
 
 /**
  * The module that provides the Application Context to all the other modules. Will allow us to inject
- * this as soon as the {@link dagger.ObjectGraph} is built in the {@link com.adamg.slack.cloud.CloudDelegate}.
+ * this as soon as the {@link dagger.ObjectGraph} is built in the {@link com.adamg.materialtemplate.cloud.CloudDelegate}.
  *
  * @author Adam Greenberg
  * @version 1 on 6/27/15

@@ -1,38 +1,73 @@
-package com.adamg.materialtemplate;
+package com.adamg.materialtemplate.ui.activities;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.adamg.materialtemplate.R;
+import com.adamg.materialtemplate.presenter.MainActivityPresenter;
+import com.adamg.materialtemplate.ui.adapter.NavigationDrawerCallbacks;
+import com.adamg.materialtemplate.ui.fragment.NavigationDrawerFragment;
+import com.adamg.materialtemplate.ui.views.MainActivityView;
 
-public class BaseActivity extends ActionBarActivity
-        implements NavigationDrawerCallbacks {
+import javax.inject.Inject;
+
+import butterknife.InjectView;
+
+/**
+ * Default setup for the Main Activity - this is the piece that hooks all others for the common
+ * execution of the Application layer
+ *
+ * @author Adam Greenberg
+ * @version 1 on 7/5/15
+ *          All code under The MIT License (MIT) unless otherwise noted.
+ */
+public class MainActivity extends BaseActivity implements MainActivityView, NavigationDrawerCallbacks {
+
+    @InjectView(R.id.main_layout_frame_layout)
+    FrameLayout mFrameLayout;
+
+    @InjectView(R.id.toolbar_actionbar)
+    protected Toolbar mToolbar;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    private Toolbar mToolbar;
+    protected NavigationDrawerFragment mNavigationDrawerFragment;
+
+    /**
+     * Injected instance of the presenter class for the Main Activity
+     */
+    @Inject
+    MainActivityPresenter mMainActivityPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_layout);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(mToolbar);
+
+        if (savedInstanceState == null) {
+            mMainActivityPresenter.onFirstCreation();
+        }
+
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+        }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
+
         // populate the navigation drawer
-        mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
+        mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com",
+                BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
+
     }
 
     @Override
@@ -81,5 +116,13 @@ public class BaseActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public int getFrameLayoutId() {
+        return R.id.main_layout_frame_layout;
+    }
 
+    @Override
+    public int getLayout() {
+        return R.layout.activity_base_layout;
+    }
 }
