@@ -1,4 +1,4 @@
-package com.adamg.materialtemplate;
+package com.adamg.materialtemplate.ui.adapter;
 
 
 import android.graphics.drawable.Drawable;

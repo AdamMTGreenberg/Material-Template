@@ -1,4 +1,4 @@
-package com.adamg.materialtemplate;
+package com.adamg.materialtemplate.ui.visual;
 
 
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
+
+import com.adamg.materialtemplate.R;
 
 
 /**

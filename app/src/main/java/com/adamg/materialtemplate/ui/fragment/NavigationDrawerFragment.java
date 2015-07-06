@@ -1,4 +1,4 @@
-package com.adamg.materialtemplate;
+package com.adamg.materialtemplate.ui.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -26,6 +26,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.adamg.materialtemplate.R;
+import com.adamg.materialtemplate.ui.adapter.NavigationDrawerAdapter;
+import com.adamg.materialtemplate.ui.adapter.NavigationDrawerCallbacks;
+import com.adamg.materialtemplate.ui.adapter.NavigationItem;
 
 import java.util.ArrayList;
 import java.util.List;

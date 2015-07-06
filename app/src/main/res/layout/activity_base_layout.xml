@@ -25,7 +25,7 @@
             android:clickable="true"/>
     </LinearLayout>
     <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
-    <com.adamg.materialtemplate.ScrimInsetsFrameLayout
+    <com.adamg.materialtemplate.ui.visual.ScrimInsetsFrameLayout
         android:id="@+id/scrimInsetsFrameLayout"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="wrap_content"
@@ -36,12 +36,12 @@
 
         <fragment
             android:id="@+id/fragment_drawer"
-            android:name="com.adamg.materialtemplate.NavigationDrawerFragment"
+            android:name="com.adamg.materialtemplate.ui.fragment.NavigationDrawerFragment"
             android:layout_width="@dimen/navigation_drawer_width"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:layout="@layout/fragment_navigation_drawer_layout"/>
-    </com.adamg.materialtemplate.ScrimInsetsFrameLayout>
+    </com.adamg.materialtemplate.ui.visual.ScrimInsetsFrameLayout>
 
 
 </android.support.v4.widget.DrawerLayout>

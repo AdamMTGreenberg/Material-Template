@@ -1,4 +1,4 @@
-package com.adamg.materialtemplate;
+package com.adamg.materialtemplate.ui.activities;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.adamg.materialtemplate.ui.adapter.NavigationDrawerCallbacks;
+import com.adamg.materialtemplate.ui.fragment.NavigationDrawerFragment;
+import com.adamg.materialtemplate.R;
 
 
 public class BaseActivity extends ActionBarActivity
