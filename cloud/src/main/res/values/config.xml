@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Server config -->
+    <integer name="current_server">0</integer>
+
+    <!-- Default settings -->
+    <string name="default_server_protocol">https</string>
+    <string name="default_server_host_develop"></string>
+    <integer name="default_server_port">443</integer>
+
+    <!-- API Token -->
+    <string name="auth_token"></string>
+</resources>
